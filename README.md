@@ -1,1 +1,1 @@
-# Jobify-MERN-Stack
+Jobify-MERN-Stack - Udemy Course Project
