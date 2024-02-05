@@ -6,6 +6,7 @@ const app = express();
 
 import colors from 'colors';
 import morgan from 'morgan';
+import mongoose from 'mongoose';
 
 import jobRouter from './routes/jobRouter.js';
 
@@ -37,6 +38,12 @@ app.use((err, req, res, next) => {
 
 const port = process.env.PORT || 5000;
 
-app.listen(port, () => {
-  console.log(colors.cyan.underline(`Server listen on PORT ${port}`));
-});
+try {
+  await mongoose.connect(process.env.MONGO_URL);
+  app.listen(port, () => {
+    console.log(colors.cyan.underline(`Server listen on PORT ${port}`));
+  });
+} catch (error) {
+  console.log(colors.red(error));
+  process.exit(1);
+}
