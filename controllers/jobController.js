@@ -2,6 +2,7 @@ import { StatusCodes } from 'http-status-codes';
 import Job from '../models/JobModel.js';
 
 export const getAllJobs = async (req, res) => {
+  console.log(res);
   const jobs = await Job.find({});
   res.status(StatusCodes.OK).json({ jobs });
 };
