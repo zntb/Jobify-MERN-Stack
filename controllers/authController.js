@@ -12,7 +12,7 @@ export const register = async (req, res) => {
   req.body.password = hashedPassword;
 
   const user = await User.create(req.body);
-  res.status(StatusCodes.CREATED).json({ user, msg: 'user created' });
+  res.status(StatusCodes.CREATED).json({ user, msg: 'User created' });
 };
 
 export const login = async (req, res) => {
@@ -20,7 +20,7 @@ export const login = async (req, res) => {
 
   const isValidUser =
     user && (await comparePassword(req.body.password, user.password));
-  if (!isValidUser) throw new UnauthenticatedError('invalid credentials');
+  if (!isValidUser) throw new UnauthenticatedError('Invalid credentials');
 
   const oneDay = 1000 * 60 * 60 * 24;
 
@@ -31,7 +31,7 @@ export const login = async (req, res) => {
     expires: new Date(Date.now() + oneDay),
     secure: process.env.NODE_ENV === 'production',
   });
-  res.status(StatusCodes.CREATED).json({ msg: 'user logged in' });
+  res.status(StatusCodes.CREATED).json({ msg: 'User logged in' });
 };
 
 export const logout = (req, res) => {
@@ -39,5 +39,5 @@ export const logout = (req, res) => {
     httpOnly: true,
     expires: new Date(Date.now()),
   });
-  res.status(StatusCodes.OK).json({ msg: 'user logged out!' });
+  res.status(StatusCodes.OK).json({ msg: 'User logged out!' });
 };
