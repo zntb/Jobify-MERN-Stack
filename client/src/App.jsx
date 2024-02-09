@@ -18,6 +18,7 @@ import { action as registerAction } from './pages/Register';
 import { action as loginAction } from './pages/Login';
 
 //TODO: move the checkDefaultTheme function to a separate file!
+// eslint-disable-next-line react-refresh/only-export-components
 export const checkDefaultTheme = () => {
   const isDarkTheme = localStorage.getItem('darkTheme') === 'true';
   document.body.classList.toggle('dark-theme', isDarkTheme);

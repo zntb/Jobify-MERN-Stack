@@ -1,4 +1,10 @@
-import { Link, Form, redirect, useNavigation } from 'react-router-dom';
+import {
+  Link,
+  Form,
+  redirect,
+  useNavigation,
+  useActionData,
+} from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Wrapper from '../assets/wrappers/RegisterAndLoginPage';
 import { FormRow, Logo } from '../components';
@@ -6,6 +12,7 @@ import customFetch from '../utils/customFetch';
 
 const Login = () => {
   const navigation = useNavigation();
+  const errors = useActionData();
 
   const isSubmitting = navigation.state === 'submitting';
 
@@ -14,6 +21,8 @@ const Login = () => {
       <Form className="form" method="post">
         <Logo />
         <h4>Login</h4>
+        {errors?.msg && <p style={{ color: 'red' }}>{errors.msg}</p>}
+        <p></p>
         <FormRow type="email" name="email" />
         <FormRow type="password" name="password" />
         <button type="submit" className="btn btn-block" disabled={isSubmitting}>
@@ -34,9 +43,16 @@ const Login = () => {
 };
 export default Login;
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const action = async ({ request }) => {
   const formData = await request.formData();
   const data = Object.fromEntries(formData);
+  const errors = { msg: '' };
+
+  if (data.password.length <= 3) {
+    errors.msg = 'Password too short';
+    return errors;
+  }
 
   try {
     await customFetch.post('/auth/login', data);
@@ -45,5 +61,7 @@ export const action = async ({ request }) => {
   } catch (error) {
     toast.error(error?.response?.data?.msg);
     return error;
+    // errors.msg = error?.response?.data?.msg; //- come from backend
+    // return errors;
   }
 };
