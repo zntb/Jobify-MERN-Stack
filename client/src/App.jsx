@@ -15,6 +15,7 @@ import {
 } from './pages';
 
 import { action as registerAction } from './pages/Register';
+import { action as loginAction } from './pages/Login';
 
 //TODO: move the checkDefaultTheme function to a separate file!
 export const checkDefaultTheme = () => {
@@ -43,6 +44,7 @@ const router = createBrowserRouter([
       {
         path: 'login',
         element: <Login />,
+        action: loginAction,
       },
       {
         path: 'dashboard',
