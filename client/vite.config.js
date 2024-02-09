@@ -7,9 +7,9 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://localhost:5000/api',
+        target: 'http://localhost:5000', // Remove '/api' from the target URL
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ''),
+        rewrite: (path) => path.replace(/^\/api/, ''), // Remove this line or adjust as needed
       },
     },
   },

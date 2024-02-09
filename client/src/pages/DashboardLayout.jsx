@@ -1,5 +1,7 @@
+/* eslint-disable react-refresh/only-export-components */
 import { createContext, useState, useContext } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, redirect, useLoaderData } from 'react-router-dom';
+import customFetch from '../utils/customFetch';
 
 import Wrapper from '../assets/wrappers/Dashboard';
 import { BigSidebar, Navbar, SmallSidebar } from '../components';
@@ -8,8 +10,9 @@ import { checkDefaultTheme } from '../App';
 const DashBoardContext = createContext();
 
 const DashboardLayout = () => {
-  // temp
-  const user = { name: 'john' };
+  const { user } = useLoaderData();
+  console.log(user);
+
   const [showSidebar, setShowSidebar] = useState(false);
   const [isDarkTheme, setIsDarkTheme] = useState(checkDefaultTheme());
 
@@ -46,7 +49,7 @@ const DashboardLayout = () => {
           <div>
             <Navbar />
             <div className="dashboard-page">
-              <Outlet />
+              <Outlet context={{ user }} />
             </div>
           </div>
         </main>
@@ -58,3 +61,12 @@ const DashboardLayout = () => {
 export const useDashboardContext = () => useContext(DashBoardContext);
 
 export default DashboardLayout;
+
+export const loader = async () => {
+  try {
+    const { data } = await customFetch('/users/current-user');
+    return data;
+  } catch (error) {
+    return redirect('/');
+  }
+};
