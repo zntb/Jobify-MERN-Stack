@@ -14,9 +14,9 @@ import {
   Admin,
 } from './pages';
 
-import { action as registerAction } from './pages/Register';
-import { action as loginAction } from './pages/Login';
-import { loader as dashboardLoader } from './pages/DashboardLayout';
+// import { action as registerAction } from './pages/Register';
+// import { action as loginAction } from './pages/Login';
+// import { loader as dashboardLoader } from './pages/DashboardLayout';
 
 //TODO: move the checkDefaultTheme function to a separate file!
 // eslint-disable-next-line react-refresh/only-export-components
@@ -33,7 +33,7 @@ const router = createBrowserRouter([
     path: '/',
     element: <HomeLayout />,
     errorElement: <Error />,
-    loader: dashboardLoader,
+    // loader: dashboardLoader,
     children: [
       {
         index: true,
@@ -42,12 +42,12 @@ const router = createBrowserRouter([
       {
         path: 'register',
         element: <Register />,
-        action: registerAction,
+        // action: registerAction,
       },
       {
         path: 'login',
         element: <Login />,
-        action: loginAction,
+        // action: loginAction,
       },
       {
         path: 'dashboard',
