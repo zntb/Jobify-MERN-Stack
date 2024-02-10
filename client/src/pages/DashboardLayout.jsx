@@ -11,7 +11,14 @@ import { checkDefaultTheme } from '../App';
 const DashBoardContext = createContext();
 
 const DashboardLayout = () => {
-  const { user } = useLoaderData();
+  // const { user } = useLoaderData();
+  const user = {
+    name: 'john',
+    email: 'test@test.com',
+    password: '123456',
+    lastName: 'smith',
+    location: 'my city',
+  };
   const navigate = useNavigate();
 
   const [showSidebar, setShowSidebar] = useState(false);
@@ -52,7 +59,7 @@ const DashboardLayout = () => {
           <div>
             <Navbar />
             <div className="dashboard-page">
-              <Outlet context={{ user }} />
+              <Outlet />
             </div>
           </div>
         </main>
@@ -65,11 +72,11 @@ export const useDashboardContext = () => useContext(DashBoardContext);
 
 export default DashboardLayout;
 
-export const loader = async () => {
-  try {
-    const { data } = await customFetch('/users/current-user');
-    return data;
-  } catch (error) {
-    return redirect('/');
-  }
-};
+// export const loader = async () => {
+//   try {
+//     const { data } = await customFetch('/users/current-user');
+//     return data;
+//   } catch (error) {
+//     return redirect('/');
+//   }
+// };
