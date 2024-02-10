@@ -1,6 +1,5 @@
 import { FormRow, FormRowSelect } from '../components';
 import Wrapper from '../assets/wrappers/DashboardFormPage';
-import { useOutletContext } from 'react-router-dom';
 
 import { Form, useNavigation, redirect } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -57,3 +56,16 @@ const AddJob = () => {
   );
 };
 export default AddJob;
+
+export const action = async ({ request }) => {
+  const formData = await request.formData();
+  const data = Object.fromEntries(formData);
+  try {
+    await customFetch.post('/jobs', data);
+    toast.success('Job added successfully');
+    return redirect('all-jobs');
+  } catch (error) {
+    toast.error(error?.response?.data?.msg);
+    return error;
+  }
+};

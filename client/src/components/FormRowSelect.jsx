@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-import { JOB_STATUS, JOB_TYPE } from '../../../utils/constants';
 
 const FormRowSelect = ({ name, labelText, list, defaultValue = '' }) => {
   return (

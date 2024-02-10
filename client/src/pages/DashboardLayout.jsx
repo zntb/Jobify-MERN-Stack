@@ -72,11 +72,11 @@ export const useDashboardContext = () => useContext(DashBoardContext);
 
 export default DashboardLayout;
 
-// export const loader = async () => {
-//   try {
-//     const { data } = await customFetch('/users/current-user');
-//     return data;
-//   } catch (error) {
-//     return redirect('/');
-//   }
-// };
+export const loader = async () => {
+  try {
+    const { data } = await customFetch('/users/current-user');
+    return data;
+  } catch (error) {
+    return redirect('/');
+  }
+};
