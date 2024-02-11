@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import { FormRow } from '../components';
 import Wrapper from '../assets/wrappers/DashboardFormPage';
 import { useOutletContext } from 'react-router-dom';
@@ -61,3 +62,20 @@ const Profile = () => {
   );
 };
 export default Profile;
+
+export const action = async ({ request }) => {
+  const formData = await request.formData();
+  const file = formData.get('avatar');
+  if (file && file.size > 500000) {
+    toast.error('Image size too large');
+    return null;
+  }
+
+  try {
+    await customFetch.patch('/users/update-user', formData);
+    toast.success('Profile updated successfully');
+  } catch (error) {
+    toast.error(error?.response?.data?.msg);
+  }
+  return null;
+};
