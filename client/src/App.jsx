@@ -23,6 +23,7 @@ import {
 // import { loader as editJobLoader } from './pages/EditJob';
 // import { action as editJobAction } from './pages/EditJob';
 // import { action as deleteJobAction } from './pages/DeleteJob';
+// import { loader as adminLoader } from './pages/Admin';
 
 //TODO: move the checkDefaultTheme function to a separate file!
 // eslint-disable-next-line react-refresh/only-export-components
@@ -81,6 +82,7 @@ const router = createBrowserRouter([
           {
             path: 'admin',
             element: <Admin />,
+            // loader: adminLoader,
           },
           {
             path: 'edit-job/:id',

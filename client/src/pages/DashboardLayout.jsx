@@ -18,6 +18,7 @@ const DashboardLayout = () => {
     password: '123456',
     lastName: 'smith',
     location: 'my city',
+    role: 'admin',
   };
   const navigate = useNavigate();
 

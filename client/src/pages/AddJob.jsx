@@ -14,6 +14,7 @@ const AddJob = () => {
     password: '123456',
     lastName: 'smith',
     location: 'my city',
+    role: 'admin',
   };
   const navigation = useNavigation();
   const isSubmitting = navigation.state === 'submitting';
