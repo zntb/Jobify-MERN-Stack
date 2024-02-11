@@ -1,20 +1,11 @@
-import {
-  Link,
-  Form,
-  redirect,
-  useNavigation,
-  useActionData,
-} from 'react-router-dom';
+import { Link, Form, redirect, useActionData } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Wrapper from '../assets/wrappers/RegisterAndLoginPage';
-import { FormRow, Logo } from '../components';
+import { FormRow, Logo, SubmitBtn } from '../components';
 import customFetch from '../utils/customFetch';
 
 const Login = () => {
-  const navigation = useNavigation();
   const errors = useActionData();
-
-  const isSubmitting = navigation.state === 'submitting';
 
   return (
     <Wrapper>
@@ -25,9 +16,7 @@ const Login = () => {
         <p></p>
         <FormRow type="email" name="email" />
         <FormRow type="password" name="password" />
-        <button type="submit" className="btn btn-block" disabled={isSubmitting}>
-          {isSubmitting ? 'submitting...' : 'submit'}
-        </button>
+        <SubmitBtn />
         <button type="button" className="btn btn-block">
           explore the app
         </button>
