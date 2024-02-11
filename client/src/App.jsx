@@ -24,6 +24,7 @@ import {
 // import { action as editJobAction } from './pages/EditJob';
 // import { action as deleteJobAction } from './pages/DeleteJob';
 // import { loader as adminLoader } from './pages/Admin';
+// import { action as profileAction } from './pages/Profile';
 
 //TODO: move the checkDefaultTheme function to a separate file!
 // eslint-disable-next-line react-refresh/only-export-components
@@ -78,6 +79,7 @@ const router = createBrowserRouter([
           {
             path: 'profile',
             element: <Profile />,
+            // action: profileAction,
           },
           {
             path: 'admin',
