@@ -22,6 +22,7 @@ import {
 // import { action as addJobAction } from './pages/AddJob';
 // import { loader as editJobLoader } from './pages/EditJob';
 // import { action as editJobAction } from './pages/EditJob';
+// import { action as deleteJobAction } from './pages/DeleteJob';
 
 //TODO: move the checkDefaultTheme function to a separate file!
 // eslint-disable-next-line react-refresh/only-export-components
@@ -86,6 +87,10 @@ const router = createBrowserRouter([
             element: <EditJob />,
             // loader: editJobLoader,
             // action: editJobAction,
+          },
+          {
+            path: 'delete-job/:id',
+            // action: deleteJobAction,
           },
         ],
       },
