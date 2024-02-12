@@ -15,16 +15,17 @@ import {
   EditJob,
 } from './pages';
 
-// import { action as registerAction } from './pages/Register';
-// import { action as loginAction } from './pages/Login';
-// import { loader as dashboardLoader } from './pages/DashboardLayout';
-// import { loader as allJobsLoader } from './pages/AllJobs';
-// import { action as addJobAction } from './pages/AddJob';
-// import { loader as editJobLoader } from './pages/EditJob';
-// import { action as editJobAction } from './pages/EditJob';
-// import { action as deleteJobAction } from './pages/DeleteJob';
-// import { loader as adminLoader } from './pages/Admin';
-// import { action as profileAction } from './pages/Profile';
+import { action as registerAction } from './pages/Register';
+import { action as loginAction } from './pages/Login';
+import { loader as dashboardLoader } from './pages/DashboardLayout';
+import { loader as allJobsLoader } from './pages/AllJobs';
+import { action as addJobAction } from './pages/AddJob';
+import { loader as editJobLoader } from './pages/EditJob';
+import { action as editJobAction } from './pages/EditJob';
+import { action as deleteJobAction } from './pages/DeleteJob';
+import { loader as adminLoader } from './pages/Admin';
+import { action as profileAction } from './pages/Profile';
+import { loader as statsLoader } from './pages/Stats';
 
 //TODO: move the checkDefaultTheme function to a separate file!
 // eslint-disable-next-line react-refresh/only-export-components
@@ -41,7 +42,7 @@ const router = createBrowserRouter([
     path: '/',
     element: <HomeLayout />,
     errorElement: <Error />,
-    // loader: dashboardLoader,
+    loader: dashboardLoader,
     children: [
       {
         index: true,
@@ -50,12 +51,12 @@ const router = createBrowserRouter([
       {
         path: 'register',
         element: <Register />,
-        // action: registerAction,
+        action: registerAction,
       },
       {
         path: 'login',
         element: <Login />,
-        // action: loginAction,
+        action: loginAction,
       },
       {
         path: 'dashboard',
@@ -64,37 +65,38 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <AddJob />,
-            // action: addJobAction,
+            action: addJobAction,
           },
           {
             path: 'stats',
             element: <Stats />,
+            loader: statsLoader,
           },
           {
             path: 'all-jobs',
             element: <AllJobs />,
-            // loader: allJobsLoader,
+            loader: allJobsLoader,
           },
 
           {
             path: 'profile',
             element: <Profile />,
-            // action: profileAction,
+            action: profileAction,
           },
           {
             path: 'admin',
             element: <Admin />,
-            // loader: adminLoader,
+            loader: adminLoader,
           },
           {
             path: 'edit-job/:id',
             element: <EditJob />,
-            // loader: editJobLoader,
-            // action: editJobAction,
+            loader: editJobLoader,
+            action: editJobAction,
           },
           {
             path: 'delete-job/:id',
-            // action: deleteJobAction,
+            action: deleteJobAction,
           },
         ],
       },
