@@ -7,8 +7,8 @@ import customFetch from '../utils/customFetch';
 import { toast } from 'react-toastify';
 
 const Profile = () => {
-  // const { user } = useOutletContext();
-  // const { name, lastName, email, location } = user;
+  const { user } = useOutletContext();
+  const { name, lastName, email, location } = user;
 
   return (
     <Wrapper>
@@ -26,27 +26,15 @@ const Profile = () => {
               accept="image/*"
             />
           </div>
-          <FormRow
-            type="text"
-            name="name"
-            // defaultValue={name}
-          />
+          <FormRow type="text" name="name" defaultValue={name} />
           <FormRow
             type="text"
             name="lastName"
             labelText="last name"
-            // defaultValue={lastName}
+            defaultValue={lastName}
           />
-          <FormRow
-            type="email"
-            name="email"
-            // defaultValue={email}
-          />
-          <FormRow
-            type="text"
-            name="location"
-            // defaultValue={location}
-          />
+          <FormRow type="email" name="email" defaultValue={email} />
+          <FormRow type="text" name="location" defaultValue={location} />
           <SubmitBtn formBtn />
         </div>
       </Form>

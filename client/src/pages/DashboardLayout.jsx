@@ -11,15 +11,8 @@ import { checkDefaultTheme } from '../App';
 const DashBoardContext = createContext();
 
 const DashboardLayout = () => {
-  // const { user } = useLoaderData();
-  const user = {
-    name: 'john',
-    email: 'test@test.com',
-    password: '123456',
-    lastName: 'smith',
-    location: 'my city',
-    role: 'admin',
-  };
+  const { user } = useLoaderData();
+
   const navigate = useNavigate();
 
   const [showSidebar, setShowSidebar] = useState(false);
@@ -60,7 +53,7 @@ const DashboardLayout = () => {
           <div>
             <Navbar />
             <div className="dashboard-page">
-              <Outlet />
+              <Outlet context={{ user }} />
             </div>
           </div>
         </main>
