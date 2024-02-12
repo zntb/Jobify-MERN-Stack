@@ -23,8 +23,13 @@ export const useAllJobsContext = () => useContext(AllJobsContext);
 export default AllJobs;
 
 export const loader = async ({ request }) => {
+  const params = Object.fromEntries([
+    ...new URL(request.url).searchParams.entries(),
+  ]);
   try {
-    const { data } = await customFetch.get('/jobs');
+    const { data } = await customFetch.get('/jobs', {
+      params,
+    });
     return { data };
   } catch (error) {
     toast.error(error?.response?.data?.msg);
