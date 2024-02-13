@@ -1,5 +1,5 @@
 /* eslint-disable react-refresh/only-export-components */
-import { createContext, useState, useContext } from 'react';
+import { createContext, useState, useContext, useEffect } from 'react';
 import { Outlet, redirect, useNavigate, useNavigation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
@@ -28,6 +28,7 @@ const DashboardLayout = ({ isDarkThemeEnabled, queryClient }) => {
 
   const [showSidebar, setShowSidebar] = useState(false);
   const [isDarkTheme, setIsDarkTheme] = useState(checkDefaultTheme());
+  const [isAuthError, setIsAuthError] = useState(false);
 
   const toggleDarkTheme = () => {
     const newDarkTheme = !isDarkTheme;
@@ -46,6 +47,26 @@ const DashboardLayout = ({ isDarkThemeEnabled, queryClient }) => {
     queryClient.invalidateQueries();
     toast.success('Logging out...');
   };
+
+  customFetch.interceptors.response.use(
+    (response) => {
+      return response;
+    },
+    (error) => {
+      if (error?.response?.status === 401) {
+        setIsAuthError(true);
+      }
+      return Promise.reject(error);
+    }
+  );
+
+  useEffect(() => {
+    if (!isAuthError) {
+      return;
+    }
+
+    logoutUser();
+  }, [isAuthError]);
 
   return (
     <DashBoardContext.Provider
