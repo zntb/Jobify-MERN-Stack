@@ -1,8 +1,7 @@
 import { Router } from 'express';
-
 import {
-  getCurrentUser,
   getApplicationStats,
+  getCurrentUser,
   updateUser,
 } from '../controllers/userController.js';
 import { validateUpdateUserInput } from '../middleware/validationMiddleware.js';
@@ -11,7 +10,6 @@ import {
   checkForTestUser,
 } from '../middleware/authMiddleware.js';
 import upload from '../middleware/multerMiddleware.js';
-
 const router = Router();
 
 router.get('/current-user', getCurrentUser);
@@ -26,4 +24,5 @@ router.patch(
   validateUpdateUserInput,
   updateUser
 );
+
 export default router;

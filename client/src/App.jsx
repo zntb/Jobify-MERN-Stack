@@ -17,29 +17,26 @@ import {
   EditJob,
 } from './pages';
 
-import { ErrorElement } from './components';
-
 import { action as registerAction } from './pages/Register';
 import { action as loginAction } from './pages/Login';
 import { loader as dashboardLoader } from './pages/DashboardLayout';
-import { loader as allJobsLoader } from './pages/AllJobs';
 import { action as addJobAction } from './pages/AddJob';
+import { loader as allJobsLoader } from './pages/AllJobs';
 import { loader as editJobLoader } from './pages/EditJob';
 import { action as editJobAction } from './pages/EditJob';
 import { action as deleteJobAction } from './pages/DeleteJob';
 import { loader as adminLoader } from './pages/Admin';
 import { action as profileAction } from './pages/Profile';
 import { loader as statsLoader } from './pages/Stats';
+import ErrorElement from './components/ErrorElement';
 
-//TODO: move the checkDefaultTheme function to a separate file!
-// eslint-disable-next-line react-refresh/only-export-components
 export const checkDefaultTheme = () => {
   const isDarkTheme = localStorage.getItem('darkTheme') === 'true';
   document.body.classList.toggle('dark-theme', isDarkTheme);
   return isDarkTheme;
 };
 
-const isDarkThemeEnabled = checkDefaultTheme();
+checkDefaultTheme();
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -54,7 +51,6 @@ const router = createBrowserRouter([
     path: '/',
     element: <HomeLayout />,
     errorElement: <Error />,
-    loader: dashboardLoader,
     children: [
       {
         index: true,
@@ -72,12 +68,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'dashboard',
-        element: (
-          <DashboardLayout
-            isDarkThemeEnabled={isDarkThemeEnabled}
-            queryClient={queryClient}
-          />
-        ),
+        element: <DashboardLayout queryClient={queryClient} />,
         loader: dashboardLoader(queryClient),
         children: [
           {
@@ -97,7 +88,6 @@ const router = createBrowserRouter([
             loader: allJobsLoader(queryClient),
             errorElement: <ErrorElement />,
           },
-
           {
             path: 'profile',
             element: <Profile />,
@@ -114,10 +104,7 @@ const router = createBrowserRouter([
             loader: editJobLoader(queryClient),
             action: editJobAction(queryClient),
           },
-          {
-            path: 'delete-job/:id',
-            action: deleteJobAction(queryClient),
-          },
+          { path: 'delete-job/:id', action: deleteJobAction(queryClient) },
         ],
       },
     ],

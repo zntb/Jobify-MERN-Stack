@@ -1,6 +1,6 @@
-/* eslint-disable react-refresh/only-export-components */
 import { ChartsContainer, StatsContainer } from '../components';
 import customFetch from '../utils/customFetch';
+import { useLoaderData } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 
 const statsQuery = {
@@ -9,6 +9,11 @@ const statsQuery = {
     const response = await customFetch.get('/jobs/stats');
     return response.data;
   },
+};
+
+export const loader = (queryClient) => async () => {
+  const data = await queryClient.ensureQueryData(statsQuery);
+  return null;
 };
 
 const Stats = () => {
@@ -25,8 +30,3 @@ const Stats = () => {
   );
 };
 export default Stats;
-
-export const loader = (queryClient) => async () => {
-  const data = await queryClient.ensureQueryData(statsQuery);
-  return data;
-};
