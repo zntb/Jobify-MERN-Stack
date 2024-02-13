@@ -1,12 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
 import { createContext, useState, useContext } from 'react';
-import {
-  Outlet,
-  redirect,
-  useLoaderData,
-  useNavigate,
-  useNavigation,
-} from 'react-router-dom';
+import { Outlet, redirect, useNavigate, useNavigation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import customFetch from '../utils/customFetch';
@@ -49,6 +43,7 @@ const DashboardLayout = ({ isDarkThemeEnabled, queryClient }) => {
   const logoutUser = async () => {
     navigate('/');
     await customFetch.get('/auth/logout');
+    queryClient.invalidateQueries();
     toast.success('Logging out...');
   };
 
