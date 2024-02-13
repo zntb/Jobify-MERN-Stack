@@ -17,10 +17,6 @@ const Stats = () => {
 export default Stats;
 
 export const loader = async () => {
-  try {
-    const response = await customFetch.get('/jobs/stats');
-    return response.data;
-  } catch (error) {
-    return error;
-  }
+  const response = await customFetch.get('/jobs/stats');
+  return response.data;
 };
