@@ -1,6 +1,5 @@
 import { Router } from 'express';
 const router = Router();
-
 import {
   getAllJobs,
   getJob,
@@ -14,6 +13,9 @@ import {
   validateIdParam,
 } from '../middleware/validationMiddleware.js';
 import { checkForTestUser } from '../middleware/authMiddleware.js';
+
+// router.get('/',getAllJobs)
+// router.post('/',createJob)
 
 router
   .route('/')

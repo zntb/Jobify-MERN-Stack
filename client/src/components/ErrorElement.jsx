@@ -5,5 +5,4 @@ const ErrorElement = () => {
   console.log(error);
   return <h4>There was an error...</h4>;
 };
-
 export default ErrorElement;

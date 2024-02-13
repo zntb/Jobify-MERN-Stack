@@ -1,31 +1,34 @@
-/* eslint-disable react-refresh/only-export-components */
-import { createContext, useState, useContext, useEffect } from 'react';
 import { Outlet, redirect, useNavigate, useNavigation } from 'react-router-dom';
-import { toast } from 'react-toastify';
-
-import customFetch from '../utils/customFetch';
 import Wrapper from '../assets/wrappers/Dashboard';
 import { BigSidebar, Navbar, SmallSidebar, Loading } from '../components';
-import { checkDefaultTheme } from '../App';
+import { createContext, useContext, useEffect, useState } from 'react';
+import customFetch from '../utils/customFetch';
+import { toast } from 'react-toastify';
 import { useQuery } from '@tanstack/react-query';
-
+import { checkDefaultTheme } from '../App';
 const userQuery = {
   queryKey: ['user'],
   queryFn: async () => {
-    const { data } = await customFetch('/users/current-user');
+    const { data } = await customFetch.get('/users/current-user');
     return data;
   },
 };
 
-const DashBoardContext = createContext();
+export const loader = (queryClient) => async () => {
+  try {
+    return await queryClient.ensureQueryData(userQuery);
+  } catch (error) {
+    return redirect('/');
+  }
+};
 
-const DashboardLayout = ({ isDarkThemeEnabled, queryClient }) => {
+const DashboardContext = createContext();
+
+const DashboardLayout = ({ queryClient }) => {
   const { user } = useQuery(userQuery).data;
-
   const navigate = useNavigate();
   const navigation = useNavigation();
   const isPageLoading = navigation.state === 'loading';
-
   const [showSidebar, setShowSidebar] = useState(false);
   const [isDarkTheme, setIsDarkTheme] = useState(checkDefaultTheme());
   const [isAuthError, setIsAuthError] = useState(false);
@@ -61,15 +64,12 @@ const DashboardLayout = ({ isDarkThemeEnabled, queryClient }) => {
   );
 
   useEffect(() => {
-    if (!isAuthError) {
-      return;
-    }
-
+    if (!isAuthError) return;
     logoutUser();
   }, [isAuthError]);
 
   return (
-    <DashBoardContext.Provider
+    <DashboardContext.Provider
       value={{
         user,
         showSidebar,
@@ -80,29 +80,19 @@ const DashboardLayout = ({ isDarkThemeEnabled, queryClient }) => {
       }}
     >
       <Wrapper>
-        <main className="dashboard">
+        <main className='dashboard'>
           <SmallSidebar />
           <BigSidebar />
           <div>
             <Navbar />
-            <div className="dashboard-page">
+            <div className='dashboard-page'>
               {isPageLoading ? <Loading /> : <Outlet context={{ user }} />}
             </div>
           </div>
         </main>
       </Wrapper>
-    </DashBoardContext.Provider>
+    </DashboardContext.Provider>
   );
 };
-
-export const useDashboardContext = () => useContext(DashBoardContext);
-
+export const useDashboardContext = () => useContext(DashboardContext);
 export default DashboardLayout;
-
-export const loader = (queryClient) => async () => {
-  try {
-    return await queryClient.ensureQueryData(userQuery);
-  } catch (error) {
-    return redirect('/');
-  }
-};
