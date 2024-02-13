@@ -1,7 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
 import { ChartsContainer, StatsContainer } from '../components';
 import customFetch from '../utils/customFetch';
-import { useLoaderData } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 
 const statsQuery = {
@@ -29,5 +28,5 @@ export default Stats;
 
 export const loader = (queryClient) => async () => {
   const data = await queryClient.ensureQueryData(statsQuery);
-  return null;
+  return data;
 };

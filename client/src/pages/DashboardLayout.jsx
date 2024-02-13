@@ -13,11 +13,20 @@ import customFetch from '../utils/customFetch';
 import Wrapper from '../assets/wrappers/Dashboard';
 import { BigSidebar, Navbar, SmallSidebar, Loading } from '../components';
 import { checkDefaultTheme } from '../App';
+import { useQuery } from '@tanstack/react-query';
+
+const userQuery = {
+  queryKey: ['user'],
+  queryFn: async () => {
+    const { data } = await customFetch('/users/current-user');
+    return data;
+  },
+};
 
 const DashBoardContext = createContext();
 
-const DashboardLayout = () => {
-  const { user } = useLoaderData();
+const DashboardLayout = ({ isDarkThemeEnabled, queryClient }) => {
+  const { user } = useQuery(userQuery).data;
 
   const navigate = useNavigate();
   const navigation = useNavigation();
@@ -74,10 +83,9 @@ export const useDashboardContext = () => useContext(DashBoardContext);
 
 export default DashboardLayout;
 
-export const loader = async () => {
+export const loader = (queryClient) => async () => {
   try {
-    const { data } = await customFetch('/users/current-user');
-    return data;
+    return await queryClient.ensureQueryData(userQuery);
   } catch (error) {
     return redirect('/');
   }
