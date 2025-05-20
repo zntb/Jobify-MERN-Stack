@@ -18,7 +18,7 @@
     "bcryptjs": "^2.4.3",
     "cloudinary": "^1.37.3",
     "colors": "^1.4.0",
-    "concurrently": "^9.0.0",
+    "concurrently": "^9.1.2",
     "cookie-parser": "^1.4.7",
     "datauri": "^4.1.0",
     "dayjs": "^1.11.13",
