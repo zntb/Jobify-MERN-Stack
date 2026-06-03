@@ -18,7 +18,7 @@
     "bcryptjs": "^2.4.3",
     "cloudinary": "^2.9.0",
     "colors": "^1.4.0",
-    "concurrently": "^9.2.1",
+    "concurrently": "^10.0.0",
     "cookie-parser": "^1.4.7",
     "datauri": "^4.1.0",
     "dayjs": "^1.11.19",
@@ -33,7 +33,7 @@
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^8.22.1",
     "morgan": "^1.10.1",
-    "multer": "^2.1.0",
+    "multer": "^2.1.1",
     "nanoid": "^5.1.6",
     "nodemon": "^3.1.11"
   }
